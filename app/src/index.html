@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+    <title>ToDo App</title>
+</head>
+
+<body>
+    <div class="wrapper">
+        <header class="header">
+            <h1 class="visually-hidden">To Do List</h1>
+            <a href="#" class="header__logo">
+                <img src="images/logo.svg" alt="Senla logo">
+            </a>
+            <form class="header__search">
+                <button class="search-submit" type="submit"></button>
+                <input type="search" placeholder="Search task for to do" aria-label="Search">
+            </form>
+        </header>
+        <main class="main">
+
+
+            <div class="main-content">
+                <nav class="tabs">
+                    <ul class="tabs__list">
+                        <li class="tabs__item active"><a class="tabs__link" href="#tab-all">All</a></li>
+                        <li class="tabs__item"><a class="tabs__link" href="#tab-active">Active</a></li>
+                        <li class="tabs__item"><a class="tabs__link" href="#tab-done">Done</a></li>
+                    </ul>
+                </nav>
+
+                <section class="add-task">
+                    <form class="add-task__wrapper">
+                        <label for="todo-text" class="add-task__label">New Task</label>
+                        <textarea class="add-task__textarea" id="todo-text"></textarea>
+                        <button class="add-task__btn" type="submit">ADD</button>
+                    </form>
+                </section>
+
+                <section class="tab-content active" id="tab-all">
+                    <ul class="tasks__list tasks__list--all">
+
+                    </ul>
+                </section>
+                <section class="tab-content" id="tab-active">
+                    <ul class="tasks__list tasks__list--active">
+
+                    </ul>
+                </section>
+                <section class="tab-content" id="tab-done">
+                    <ul class="tasks__list tasks__list--done">
+
+                    </ul>
+
+                </section>
+
+            </div>
+
+
+
+        </main>
+
+    </div>
+    <script src="index.js"></script>
+</body>
+
+</html>

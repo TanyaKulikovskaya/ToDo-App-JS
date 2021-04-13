@@ -1,0 +1,226 @@
+@import "../../node_modules/normalize.css/normalize.css";
+
+
+:root {
+    --bg: #FFFFFF;
+    --active-color: #2F80ED;
+    --important-color: #27AE60;
+    --font-color: #53565A;
+    --task-font-color: #706E6B;
+    --top-border-color: #E2E2E2;
+    --task-border-color: #DDDBDA;
+    --search-color: #b3b3b3;
+    --main-fs: 16px;
+    --main-lh: 19px;
+}
+
+*,
+*::before,
+*::after {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    font-size: var(--main-fs);
+    font-family: 'Roboto', Arial, sans-serif;
+    background: url(../images/bg.svg) no-repeat 0 0;
+    background-position: bottom 70px right 6px;
+    background-size: 65%;
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 760px;
+    padding: 20px 40px;
+}
+
+.header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.visually-hidden {
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    margin: -1px;
+}
+
+.header__logo {
+    margin-right: 20px;
+    margin-left: -20px;
+}
+
+.header__search {
+    flex: 1 1 auto;
+    position: relative;
+}
+
+button, 
+input,
+textarea {
+    border: none;
+    outline: none;
+}
+
+textarea {
+    resize: none;
+}
+
+.search-submit {
+    position: absolute;
+    top: 4px;
+    left: 4px;
+    width: 32px;
+    height: 32px;
+    background: url(../icons/search-icon.svg) no-repeat;
+    background-position: center center;
+}
+
+input[type="search"] {
+    width: 100%;
+    display: block;
+    min-height: 40px;
+    padding-left: 35px;
+    background: linear-gradient(0deg, #F6F6F6, #F6F6F6), #FEFEFE;
+    border: 1px solid var(--top-border-color);
+    box-shadow: inset 2px 2px 2px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    font-size: var(--main-fs);
+    line-height: var(--main-lh);
+    font-weight: 500;
+    color: var(--search-color);
+}
+
+a,
+a:visited {
+    text-decoration: none;
+    color: inherit;
+}
+
+ul li {
+    list-style: none;
+}
+
+.tabs__list {
+    display: flex;
+    justify-content: space-between;
+    text-align: center;
+    position: relative;
+    padding: 18px 0px;
+}
+
+.tabs__item::before{
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 0;
+    width: 100%;
+    height: 1px;
+    background-color: var(--border-color);
+    box-shadow: 0px 1px 0px rgba(255, 255, 255, 0.05);
+}
+
+.tabs__item {
+    position: relative;
+    width: 100%;
+    font-weight: 900;
+    color: var(--font-color);
+    opacity: 0.5;
+}
+
+.tabs__item.active {
+    opacity: 1;
+}
+
+.tabs__item.active::before{
+    content: "";
+    position: absolute;
+    top: -14px;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background-color: var(--active-color)
+}
+
+.add-task {
+    margin-bottom: 23px;
+}
+
+.add-task__wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.add-task__label {
+    color: var(--task-font-color);
+    font-size: 12px;
+    line-height: 15px;
+    margin-bottom: 3px;
+}
+
+.add-task__textarea {
+    min-height: 90px;
+    margin-bottom: 10px;
+    box-sizing: border-box;
+    padding: 16px 12px 13px 23px;
+    border: 1px solid var(--task-border-color);
+    border-radius: 4px;
+    color: var(--font-color);
+}
+
+.add-task__btn {
+    align-self: flex-end;
+    min-width: 191px;
+    min-height: 36px;
+    padding: 10px;
+    text-align: center;
+    background:var(--active-color);
+    box-shadow: 0 2px 6px 0 rgba(0,0,0,0.4);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+.tasks__list li {
+    min-height: 100px;
+    padding: 16px 12px 13px 23px;
+    background: var(--bg);
+    box-shadow: 0px 6px 20px rgba(0, 0, 0, 0.1);
+    border-radius: 4px;
+    color: var(--font-color);
+}
+
+.tasks__list li + li {
+    margin-top: 17px;
+}
+
+.tasks__list li p {
+    cursor: pointer;
+    word-wrap: break-word;
+    min-height: 60px;
+}
+
+.tasks__list li.done p {
+    text-decoration: line-through;
+}
+

@@ -20,12 +20,10 @@
             </a>
             <form class="header__search">
                 <button class="search-submit" type="submit"></button>
-                <input type="search" placeholder="Search task for to do" aria-label="Search">
+                <input class="search-input" type="search" placeholder="Search task for to do">
             </form>
         </header>
         <main class="main">
-
-
             <div class="main-content">
                 <nav class="tabs">
                     <ul class="tabs__list">
@@ -34,38 +32,27 @@
                         <li class="tabs__item"><a class="tabs__link" href="#tab-done">Done</a></li>
                     </ul>
                 </nav>
-
                 <section class="add-task">
                     <form class="add-task__wrapper">
                         <label for="todo-text" class="add-task__label">New Task</label>
-                        <textarea class="add-task__textarea" id="todo-text"></textarea>
+                        <textarea maxlength="213" class="add-task__textarea" id="todo-text"></textarea>
                         <button class="add-task__btn" type="submit">ADD</button>
                     </form>
                 </section>
-
                 <section class="tab-content active" id="tab-all">
                     <ul class="tasks__list tasks__list--all">
-
                     </ul>
                 </section>
                 <section class="tab-content" id="tab-active">
                     <ul class="tasks__list tasks__list--active">
-
                     </ul>
                 </section>
                 <section class="tab-content" id="tab-done">
                     <ul class="tasks__list tasks__list--done">
-
                     </ul>
-
                 </section>
-
             </div>
-
-
-
         </main>
-
     </div>
     <script src="index.js"></script>
 </body>

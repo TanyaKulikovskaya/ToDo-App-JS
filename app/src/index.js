@@ -2,8 +2,10 @@
 const allList = document.querySelector('.tasks__list--all');
 const activeList = document.querySelector('.tasks__list--active');
 const doneList = document.querySelector('.tasks__list--done');
+
 const textarea = document.querySelector('.add-task__textarea');
 const addBtn = document.querySelector('.add-task__btn');
+const addTaskSection = document.querySelector('.add-task');
 
 const tabs = document.querySelectorAll('.tabs__item');
 const sections = document.querySelectorAll('.tab-content');
@@ -17,7 +19,7 @@ tabs.forEach((tab) => {
 });
 
 window.onstorage = () => {
-  displayAllTasks();
+  displayTasks();
 };
 
 allList.addEventListener('click', (e) => {
@@ -35,6 +37,7 @@ doneList.addEventListener('click', (e) => {
 addBtn.addEventListener('click', (e) => {
   e.preventDefault();
   addTask();
+  textarea.focus();
 });
 
 textarea.addEventListener('keydown', (e) => {
@@ -44,15 +47,15 @@ textarea.addEventListener('keydown', (e) => {
   }
 });
 
-displayAllTasks();
+displayTasks();
 
-function displayAllTasks() {
-  displayTasks();
+function displayTasks() {
+  displayAllTasks();
   displayActiveTasks();
   displayDoneTasks();
 }
 
-function displayTasks() {
+function displayAllTasks() {
   allList.innerHTML = '';
   for (let i = 0; i < localStorage.length; i += 1) {
     const id = localStorage.key(i);
@@ -61,10 +64,26 @@ function displayTasks() {
     taskItem.setAttribute('id', id);
     const text = document.createElement('p');
     text.textContent = task.text;
+    taskItem.appendChild(text);
     if (task.isDone) {
       taskItem.classList.add('done');
+    } else {
+      const importantBtn = document.createElement('button');
+      if (!task.isImportant) {
+        importantBtn.textContent = 'mark important';
+        importantBtn.classList.add('important', 'important--primary');
+        text.classList.remove('bold');
+      } else {
+        importantBtn.textContent = 'not important';
+        importantBtn.classList.add('important', 'important--secondary');
+        text.classList.add('bold');
+      }
+      taskItem.appendChild(importantBtn);
     }
-    taskItem.appendChild(text);
+    if (task.isImportant && task.isDone) text.classList.add('bold');
+    const removeBtn = document.createElement('button');
+    removeBtn.classList.add('remove');
+    taskItem.appendChild(removeBtn);
     allList.appendChild(taskItem);
   }
 }
@@ -80,6 +99,21 @@ function displayActiveTasks() {
       const text = document.createElement('p');
       text.textContent = task.text;
       taskItem.appendChild(text);
+      const importantBtn = document.createElement('button');
+      if (!task.isImportant) {
+        importantBtn.textContent = 'mark important';
+        importantBtn.classList.add('important', 'important--primary');
+        importantBtn.classList.add('important');
+        text.classList.remove('bold');
+      } else {
+        importantBtn.textContent = 'not important';
+        importantBtn.classList.add('important', 'important--secondary');
+        text.classList.add('bold');
+      }
+      taskItem.appendChild(importantBtn);
+      const removeBtn = document.createElement('button');
+      removeBtn.classList.add('remove');
+      taskItem.appendChild(removeBtn);
       activeList.appendChild(taskItem);
     }
   }
@@ -95,26 +129,15 @@ function displayDoneTasks() {
       taskItem.setAttribute('id', id);
       const text = document.createElement('p');
       text.textContent = task.text;
-      if (task.isDone) {
-        taskItem.classList.add('done');
-      }
+      taskItem.classList.add('done');
       taskItem.appendChild(text);
+      if (task.isImportant) text.classList.add('bold');
+      const removeBtn = document.createElement('button');
+      removeBtn.classList.add('remove');
+      taskItem.appendChild(removeBtn);
       doneList.appendChild(taskItem);
     }
   }
-}
-
-function handleClick(target) {
-  if (target.tagName === 'P') {
-    setDone(target.parentElement.id);
-  }
-}
-
-function setDone(id) {
-  const task = JSON.parse(localStorage.getItem(id));
-  task.isDone = !task.isDone;
-  localStorage.setItem(id, JSON.stringify(task));
-  displayAllTasks();
 }
 
 function addTask() {
@@ -128,10 +151,9 @@ function writeTask(id) {
     isDone: false,
     isImportant: false,
   };
-
   localStorage.setItem(id, JSON.stringify(taskValue));
   textarea.value = '';
-  displayAllTasks();
+  displayTasks();
 }
 
 function maxTaskId() {
@@ -143,6 +165,37 @@ function maxTaskId() {
     }
   }
   return maxId;
+}
+
+function handleClick(target) {
+  if (target.tagName === 'P') {
+    setDone(target.parentElement.id);
+  } else if (target.classList.contains('important')) {
+    setImportant(target.parentElement.id);
+  } else if (target.classList.contains('remove')) {
+    removeTask(target.parentElement.id);
+  }
+}
+
+function setDone(id) {
+  const task = JSON.parse(localStorage.getItem(id));
+  task.isDone = !task.isDone;
+  localStorage.setItem(id, JSON.stringify(task));
+  displayTasks();
+}
+
+function setImportant(id) {
+  const task = JSON.parse(localStorage.getItem(id));
+  task.isImportant = !task.isImportant;
+  localStorage.setItem(id, JSON.stringify(task));
+  displayAllTasks();
+  displayActiveTasks();
+}
+
+function removeTask(id) {
+  const task = JSON.parse(localStorage.getItem(id));
+  localStorage.removeItem(id, JSON.stringify(task));
+  displayTasks();
 }
 
 function removeActiveTab() {
@@ -159,4 +212,9 @@ function addActiveTab(e) {
   const href = e.querySelector('a').getAttribute('href');
   const matchingSection = document.querySelector(href);
   matchingSection.classList.add('active');
+  if (matchingSection.id === 'tab-done') {
+    addTaskSection.classList.add('hidden');
+  } else {
+    addTaskSection.classList.remove('hidden');
+  }
 }

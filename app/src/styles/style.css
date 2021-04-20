@@ -61,7 +61,7 @@ body {
 }
 
 .hidden {
-    display: none;
+    display: none!important;
 }
 
 .header__logo {
@@ -85,7 +85,7 @@ textarea {
     resize: none;
 }
 
-.search-submit {
+.search-icon {
     position: absolute;
     top: 4px;
     left: 4px;
@@ -99,15 +99,24 @@ input[type="search"] {
     width: 100%;
     display: block;
     min-height: 40px;
-    padding-left: 35px;
+    padding-left: 36px;
+    padding-right: 16px;
     background: linear-gradient(0deg, #f6f6f6, #f6f6f6), #fefefe;
-    border: 1px solid var(--light-grey);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--light-grey);
     box-shadow: inset 2px 2px 2px var(--shadow-color-light);
     border-radius: 4px;
     font-size: var(--main-fs);
     line-height: var(--main-lh);
     font-weight: 500;
     color: var(--search-color);
+    transition: all 0.2s ease-in-out;
+}
+
+input[type="search"]:focus {
+    border-color: var(--active-color);
+    transition: all 0.3s ease-in-out;
 }
 
 a,
@@ -174,6 +183,7 @@ ul li {
     font-size: 12px;
     line-height: 15px;
     margin-bottom: 3px;
+    pointer-events: none;
 }
 
 .add-task__textarea {
@@ -181,9 +191,18 @@ ul li {
     margin-bottom: 10px;
     box-sizing: border-box;
     padding: 16px 12px 13px 23px;
-    border: 1px solid var(--light-border-color);
+    border-width: 1px;
+    border-style: solid;
+    border-color: var(--light-border-color);
     border-radius: 4px;
     color: var(--dark-font-color);
+    transition: all 0.2s ease-in-out;
+}
+
+.add-task__textarea:focus {
+    border-color: var(--active-color);
+    transition: all 0.3s ease-in-out;
+    
 }
 
 .add-task__btn {
@@ -211,6 +230,10 @@ ul li {
 
 .tab-content.active {
     display: block;
+}
+
+#tab-done {
+    margin-top: 20px;
 }
 
 .tasks__list li {

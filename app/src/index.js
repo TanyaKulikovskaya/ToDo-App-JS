@@ -1,4 +1,6 @@
 /* eslint-disable no-use-before-define */
+const search = document.querySelector('.search-input');
+
 const allList = document.querySelector('.tasks__list--all');
 const activeList = document.querySelector('.tasks__list--active');
 const doneList = document.querySelector('.tasks__list--done');
@@ -45,6 +47,11 @@ textarea.addEventListener('keydown', (e) => {
     e.preventDefault();
     addTask();
   }
+});
+
+search.addEventListener('input', () => {
+  const term = search.value.trim().toLowerCase();
+  searchTasks(term);
 });
 
 displayTasks();
@@ -103,7 +110,6 @@ function displayActiveTasks() {
       if (!task.isImportant) {
         importantBtn.textContent = 'mark important';
         importantBtn.classList.add('important', 'important--primary');
-        importantBtn.classList.add('important');
         text.classList.remove('bold');
       } else {
         importantBtn.textContent = 'not important';
@@ -181,7 +187,7 @@ function setDone(id) {
   const task = JSON.parse(localStorage.getItem(id));
   task.isDone = !task.isDone;
   localStorage.setItem(id, JSON.stringify(task));
-  displayTasks();
+  setTimeout(displayTasks, 200);
 }
 
 function setImportant(id) {
@@ -217,4 +223,11 @@ function addActiveTab(e) {
   } else {
     addTaskSection.classList.remove('hidden');
   }
+}
+
+function searchTasks(term) {
+  const tasksContent = document.querySelectorAll('.tasks__list li p');
+  const taskContentArr = Array.from(tasksContent);
+  taskContentArr.filter((task) => !task.textContent.toLowerCase().includes(term)).forEach((task) => task.parentElement.classList.add('hidden'));
+  taskContentArr.filter((task) => task.textContent.toLowerCase().includes(term)).forEach((task) => task.parentElement.classList.remove('hidden'));
 }

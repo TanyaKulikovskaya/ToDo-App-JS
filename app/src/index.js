@@ -147,7 +147,7 @@ function displayDoneTasks() {
 }
 
 function addTask() {
-  if (textarea.value === '') return;
+  if (textarea.value.trim() === '') return;
   writeTask(Number(maxTaskId()) + 1);
 }
 

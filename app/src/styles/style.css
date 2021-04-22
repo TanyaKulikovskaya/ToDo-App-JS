@@ -28,16 +28,17 @@
 body {
     height: 100vh;
     font-size: var(--main-fs);
+    line-height: var(--main-lh);
     font-family: "Roboto", Arial, sans-serif;
     background: url(../images/bg.svg) no-repeat;
-    background-position: bottom 20% right 6px;
-    background-size: 65%;
+    background-position: top 218px right 6px;
+    background-size: 65% auto;
+    background-attachment: fixed;
 }
 
 .wrapper {
-    display: flex;
-    flex-direction: column;
-    max-width: 760px;
+    min-width: 640px;
+    max-width: 60%;
     padding: 20px 40px;
 }
 
@@ -45,23 +46,6 @@ body {
     display: flex;
     align-items: center;
     margin-bottom: 30px;
-}
-
-.visually-hidden {
-    position: absolute;
-    white-space: nowrap;
-    width: 1px;
-    height: 1px;
-    overflow: hidden;
-    border: 0;
-    padding: 0;
-    clip: rect(0 0 0 0);
-    clip-path: inset(50%);
-    margin: -1px;
-}
-
-.hidden {
-    display: none!important;
 }
 
 .header__logo {
@@ -202,7 +186,6 @@ ul li {
 .add-task__textarea:focus {
     border-color: var(--active-color);
     transition: all 0.3s ease-in-out;
-    
 }
 
 .add-task__btn {
@@ -239,7 +222,7 @@ ul li {
 .tasks__list li {
     display: flex;
     min-height: 100px;
-    padding: 16px 12px 13px 23px;
+    padding: 11px 12px 13px 23px;
     background: var(--bg);
     box-shadow: 0px 6px 20px var(--shadow-color-light);
     border-radius: 4px;
@@ -258,7 +241,8 @@ ul li {
 
 .tasks__list li p {
     flex: 1;
-    padding-right: 20px;
+    margin-right: 20px;
+    margin-top: 5px;
     cursor: pointer;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -271,7 +255,8 @@ ul li {
 
 .tasks__list li p.bold {
     font-weight: 700;
-    background: url(../icons/important-icon.svg) no-repeat 0 0;
+    background: url(../icons/important-icon.svg) no-repeat;
+    background-position: 0 0;
     padding-left: 30px;
 }
 
@@ -320,4 +305,162 @@ ul li {
 .tasks__list li:hover .remove {
     opacity: 1;
     transition: all 0.3s ease-in-out;
+}
+
+.visually-hidden {
+    position: absolute;
+    white-space: nowrap;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    border: 0;
+    padding: 0;
+    clip: rect(0 0 0 0);
+    clip-path: inset(50%);
+    margin: -1px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+@media screen and (max-width: 1023px) {
+    body {
+        background-position: top 220px right -90px;
+        background-size: 60% auto;
+    }
+
+    .wrapper {
+        min-width: 520px;
+        max-width: 72%;
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .header {
+        margin-bottom: 22px;
+    }
+
+    .header__logo {
+        margin-right: 14px;
+        margin-left: -10px;
+    }
+
+    .tabs__list {
+        padding-top: 14px;
+        padding-bottom: 14px;
+    }
+
+    .tabs__item.active::before {
+        top: -14px;
+    }
+    .add-task__textarea {
+        min-height: 80px;
+        padding: 14px 10px 10px 20px;
+    }
+
+    .tasks__list li {
+        min-height: 90px;
+        padding: 11px 10px 10px 20px;
+    }
+
+    .tasks__list li + li {
+        margin-top: 14px;
+    }
+
+    .tasks__list li p {
+        margin-right: 14px;
+    }
+
+    .important {
+        margin-right: 14px;
+        margin-top: 3px;
+        padding: 8px 12px;
+        min-width: 150px;
+        min-height: 30px;
+        font-size: 12px;
+        line-height: 14px;
+        opacity: 1;
+    }
+
+    .remove {
+        width: 36px;
+        height: 36px;
+        opacity: 1;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    body {
+        background: none;
+    }
+
+    .wrapper {
+        min-width: 300px;
+        max-width: 100%;
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .header {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .header__logo {
+        margin-left: 0px;
+        margin-bottom: 10px;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    :root {
+        --main-fs: 14px;
+        --main-lh: 16px;
+    }
+
+    .add-task {
+        margin-bottom: 18px;
+    }
+
+    .add-task__textarea {
+        margin-bottom: 8px;
+    }
+
+    .add-task__btn {
+        min-width: 170px;
+    }
+
+    .tasks__list li {
+        position: relative;
+        min-height: 80px;
+        padding: 11px 10px 8px 16px;
+        flex-direction: column;
+    }
+
+    .tasks__list li + li {
+        margin-top: 12px;
+    }
+
+    .tasks__list li p {
+        padding-top: 4px;
+        padding-bottom: 6px;
+        margin: 0px;
+    }
+
+    .important {
+        margin: 0px;
+        min-width: 140px;
+        padding: 8px 12px;
+        min-height: 28px;
+        letter-spacing: 0.6px;
+    }
+
+    .remove {
+        position: absolute;
+        right: 12px;
+        bottom: 8px;
+        width: 36px;
+        height: 36px;
+    }
 }
